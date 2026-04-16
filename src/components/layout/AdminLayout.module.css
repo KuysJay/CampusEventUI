@@ -1,0 +1,267 @@
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 260px;
+  background: var(--bg);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 100;
+  transition: width 0.3s ease;
+}
+
+.layout.collapsed .sidebar {
+  width: 72px;
+}
+
+.sidebarHeader {
+  padding: var(--space-4);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-weight: 700;
+  font-size: 1.125rem;
+  color: var(--text-h);
+  text-decoration: none;
+  overflow: hidden;
+}
+
+.logoText {
+  white-space: nowrap;
+  transition: opacity 0.3s;
+}
+
+.layout.collapsed .logoText {
+  opacity: 0;
+  width: 0;
+}
+
+.badge {
+  display: inline-block;
+  margin: var(--space-3) var(--space-4);
+  padding: var(--space-1) var(--space-3);
+  background: var(--primary-light);
+  color: var(--primary);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  width: fit-content;
+  transition: opacity 0.3s;
+}
+
+.layout.collapsed .badge {
+  opacity: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.collapseBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.collapseBtn:hover {
+  background: var(--primary-light);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.collapseBtn svg {
+  transition: transform 0.3s;
+}
+
+.collapseBtn svg.rotated {
+  transform: rotate(180deg);
+}
+
+.nav {
+  flex: 1;
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  overflow-y: auto;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius);
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.layout.collapsed .navItem {
+  justify-content: center;
+  padding: var(--space-3);
+}
+
+.layout.collapsed .navItem span {
+  display: none;
+}
+
+.navItem:hover {
+  background: var(--bg-secondary);
+  color: var(--text-h);
+}
+
+.navItem.active {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+.navItem svg {
+  flex-shrink: 0;
+}
+
+.sidebarFooter {
+  padding: var(--space-4);
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.themeBtn,
+.logoutBtn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  overflow: hidden;
+}
+
+.layout.collapsed .themeBtn,
+.layout.collapsed .logoutBtn {
+  justify-content: center;
+  padding: var(--space-3);
+}
+
+.layout.collapsed .themeBtn span,
+.layout.collapsed .logoutBtn span {
+  display: none;
+}
+
+.themeBtn:hover {
+  background: var(--primary-light);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.logoutBtn {
+  color: var(--error);
+}
+
+.logoutBtn:hover {
+  background: var(--error-light);
+  border-color: var(--error);
+}
+
+.main {
+  flex: 1;
+  margin-left: 260px;
+  background: var(--bg-secondary);
+  min-height: 100vh;
+  transition: margin-left 0.3s ease;
+}
+
+.layout.collapsed .main {
+  margin-left: 72px;
+}
+
+.header {
+  background: var(--bg);
+  padding: var(--space-6) var(--space-8);
+  border-bottom: 1px solid var(--border);
+}
+
+.headerLeft h1 {
+  margin-bottom: var(--space-1);
+}
+
+.headerLeft p {
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.content {
+  padding: var(--space-8);
+}
+
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 72px;
+  }
+
+  .logoText,
+  .badge {
+    display: none;
+  }
+
+  .navItem {
+    justify-content: center;
+    padding: var(--space-3);
+  }
+
+  .navItem span {
+    display: none;
+  }
+
+  .themeBtn,
+  .logoutBtn {
+    justify-content: center;
+    padding: var(--space-3);
+  }
+
+  .themeBtn span,
+  .logoutBtn span {
+    display: none;
+  }
+
+  .collapseBtn {
+    display: none;
+  }
+
+  .main {
+    margin-left: 72px;
+  }
+}

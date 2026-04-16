@@ -1,0 +1,352 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-secondary);
+  padding: var(--space-4);
+}
+
+.container {
+  display: flex;
+  width: 100%;
+  max-width: 1000px;
+  min-height: 600px;
+  background: var(--bg);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+.decorativePanel {
+  position: relative;
+  flex: 1;
+  background: linear-gradient(135deg, var(--primary) 0%, #7c3aed 50%, #4f46e5 100%);
+  padding: var(--space-10);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.decorativeShape1 {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+  top: -100px;
+  right: -100px;
+}
+
+.decorativeShape2 {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 50%;
+  bottom: -50px;
+  left: -50px;
+}
+
+.decorativeContent {
+  position: relative;
+  z-index: 1;
+  color: white;
+}
+
+.logo {
+  margin-bottom: var(--space-6);
+}
+
+.brandTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: var(--space-4);
+  color: white;
+}
+
+.brandDescription {
+  font-size: 1rem;
+  line-height: 1.6;
+  opacity: 0.9;
+  margin-bottom: var(--space-8);
+  max-width: 320px;
+}
+
+.benefits {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.benefit {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.benefitIcon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius);
+  flex-shrink: 0;
+}
+
+.benefitText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.benefitTitle {
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.benefitDesc {
+  font-size: 0.8125rem;
+  opacity: 0.8;
+}
+
+.formPanel {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8);
+  background: var(--bg);
+  overflow-y: auto;
+}
+
+.formContainer {
+  width: 100%;
+  max-width: 360px;
+}
+
+.header {
+  margin-bottom: var(--space-6);
+}
+
+.header h1 {
+  font-size: 1.75rem;
+  margin-bottom: var(--space-2);
+}
+
+.header p {
+  color: var(--text-muted);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.inputGroup label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-h);
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.inputIcon {
+  position: absolute;
+  left: var(--space-4);
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.inputWrapper input {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  padding-left: calc(var(--space-4) + 18px + var(--space-3));
+  padding-right: calc(var(--space-4) + 18px + var(--space-3));
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 0.9375rem;
+  background: var(--bg);
+  color: var(--text-h);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.inputWrapper input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.inputWrapper input::placeholder {
+  color: var(--text-muted);
+}
+
+.inputError {
+  border-color: var(--error) !important;
+}
+
+.inputError:focus {
+  box-shadow: 0 0 0 3px var(--error-light) !important;
+}
+
+.errorText {
+  font-size: 0.75rem;
+  color: var(--error);
+}
+
+.togglePassword {
+  position: absolute;
+  right: var(--space-3);
+  background: none;
+  border: none;
+  padding: var(--space-2);
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  transition: color 0.2s;
+}
+
+.togglePassword:hover {
+  color: var(--text);
+}
+
+.terms {
+  margin-top: var(--space-2);
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  cursor: pointer;
+}
+
+.checkboxLabel input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.checkboxCustom {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  margin-top: 2px;
+  position: relative;
+  transition: all 0.2s;
+}
+
+.checkboxLabel input:checked + .checkboxCustom {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+.checkboxLabel input:checked + .checkboxCustom::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 2px;
+  width: 4px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.checkboxLabel input:focus + .checkboxCustom {
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.termsText {
+  font-size: 0.875rem;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+.termsText a {
+  font-weight: 500;
+}
+
+.footer {
+  margin-top: var(--space-6);
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+.loginLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.loginLink:hover {
+  color: var(--primary-hover);
+}
+
+.loginLink svg {
+  transition: transform 0.2s;
+}
+
+.loginLink:hover svg {
+  transform: translateX(2px);
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    max-width: 480px;
+  }
+
+  .decorativePanel {
+    padding: var(--space-8);
+  }
+
+  .brandDescription {
+    display: none;
+  }
+
+  .benefits {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+
+  .benefit {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-2);
+  }
+
+  .benefitText {
+    display: none;
+  }
+
+  .formPanel {
+    padding: var(--space-6);
+  }
+}
