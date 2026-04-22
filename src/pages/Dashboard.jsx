@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { Button, Card, CardBody, CardHeader, Badge } from "../components/common";
 import { useAuth, useEvents } from "../context";
@@ -15,25 +16,26 @@ export default function Dashboard() {
   const { user } = useAuth();
   const { events } = useEvents();
 
-  const upcomingEvents = events.filter((e) => e.status === "upcoming");
-  const completedEvents = events.filter((e) => e.status === "completed");
-  const totalRegistrations = upcomingEvents.reduce((sum, e) => sum + e.registered_count, 0);
-  const maxCapacity = upcomingEvents.reduce((sum, e) => sum + e.capacity, 0);
+  const upcomingEvents = useMemo(() => events.filter((e) => e.status === "upcoming"), [events]);
 
-  const stats = [
-    { label: "Total Events", value: events.length, icon: "calendar" },
-    { label: "Upcoming Events", value: upcomingEvents.length, icon: "clock" },
-    { label: "Completed Events", value: completedEvents.length, icon: "check" },
-    { label: "Total Registrations", value: totalRegistrations, icon: "users" },
-  ];
+  const { totalRegistrations, maxCapacity, capacityPercentage } = useMemo(() => {
+    const total = upcomingEvents.reduce((sum, e) => sum + (e.registered_count || 0), 0);
+    const max = upcomingEvents.reduce((sum, e) => sum + (e.capacity || 0), 0);
+    const percent = max > 0 ? Math.round((total / max) * 100) : 0;
+    return { totalRegistrations: total, maxCapacity: max, capacityPercentage: percent };
+  }, [upcomingEvents]);
 
-  const recentEvents = [...events]
-    .sort((a, b) => new Date(b.start_date) - new Date(a.start_date))
-    .slice(0, 5);
+  const recentEvents = useMemo(() => 
+    [...events]
+      .sort((a, b) => new Date(b.start_date) - new Date(a.start_date))
+      .slice(0, 5)
+  , [events]);
 
-  const popularEvents = [...events]
-    .sort((a, b) => b.registered_count - a.registered_count)
-    .slice(0, 3);
+  const popularEvents = useMemo(() => 
+    [...events]
+      .sort((a, b) => (b.registered_count || 0) - (a.registered_count || 0))
+      .slice(0, 3)
+  , [events]);
 
   const getCategoryVariant = (category) => categoryColors[category] || "default";
   const formatCategory = (cat) => cat.charAt(0).toUpperCase() + cat.slice(1);
@@ -56,46 +58,6 @@ export default function Dashboard() {
           </Link>
         </div>
       </header>
-
-      <section className={styles.statsGrid}>
-        {stats.map(({ label, value, icon }) => (
-          <Card key={label} className={styles.statCard}>
-            <CardBody>
-              <div className={styles.statIcon}>
-                {icon === "calendar" && (
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                    <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="2" />
-                    <path d="M3 10h18M8 2v4M16 2v4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                  </svg>
-                )}
-                {icon === "clock" && (
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                    <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
-                    <path d="M12 6v6l4 2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                  </svg>
-                )}
-                {icon === "check" && (
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                    <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
-                    <path d="M8 12l2.5 2.5L16 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                )}
-                {icon === "users" && (
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                    <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                    <circle cx="9" cy="7" r="4" stroke="currentColor" strokeWidth="2" />
-                    <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                  </svg>
-                )}
-              </div>
-              <div className={styles.statInfo}>
-                <span className={styles.statValue}>{value}</span>
-                <span className={styles.statLabel}>{label}</span>
-              </div>
-            </CardBody>
-          </Card>
-        ))}
-      </section>
 
       <div className={styles.mainGrid}>
         <section className={styles.section}>
@@ -153,11 +115,11 @@ export default function Dashboard() {
                 <div className={styles.capacityProgress}>
                   <div
                     className={styles.capacityFill}
-                    style={{ width: `${(totalRegistrations / maxCapacity) * 100}%` }}
+                    style={{ width: `${capacityPercentage}%` }}
                   />
                 </div>
                 <span className={styles.capacityPercent}>
-                  {Math.round((totalRegistrations / maxCapacity) * 100)}% filled
+                  {capacityPercentage}% filled
                 </span>
               </div>
             </CardBody>
